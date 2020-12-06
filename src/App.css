@@ -29,20 +29,24 @@
 
 .buttonsConteiner {
   display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 .numbers {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
+  gap: 1rem;
 }
 
 .operators {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
 }
 .button {
   display: grid;
-  margin: 1em;
   place-items: center;
   width: 3.5rem;
   height: 3.5rem;
@@ -65,12 +69,12 @@
   background-color: var(--color-is-operator);
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 768px) {
   .display {
     font-size: 1.5rem;
   }
   .button {
-    width: 2rem;
+    width: 2.5rem;
     height: 2rem;
     font-size: 1rem;
   }
@@ -81,8 +85,8 @@
     font-size: 1rem;
   }
   .button {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
     font-size: 0.8rem;
 
     border-radius: 50%;

@@ -7,7 +7,7 @@ class Calculator extends Component {
     firstValue: 0,
     secondValue: 0,
     operator: 1,
-    isSume: false,
+    isAnOperator: '',
   };
 
   constructor(props) {
@@ -31,24 +31,46 @@ class Calculator extends Component {
     }
   };
   getValue = () => {
-    const { firstValue, secondValue, isSum, operator } = this.state;
+    const { firstValue, secondValue, isAnOperator, operator } = this.state;
 
     switch (operator) {
       case 1:
         return firstValue;
         break;
       case 2:
-        return secondValue;
+        return isAnOperator !== 'potenciation' ? secondValue : firstValue ** 2;
         break;
       case 3:
-        return isSum ? firstValue + secondValue : firstValue - secondValue;
+        return this.getOperation(isAnOperator, firstValue, secondValue);
+
       default:
         return this.initialState;
         break;
     }
   };
-  pickOperation = (isSum) => {
-    this.setState({ operator: 2, isSum });
+  getOperation = (isAnOperator, firstValue, secondValue) => {
+    switch (isAnOperator) {
+      case 'sum':
+        return firstValue + secondValue;
+        break;
+      case 'minus':
+        return firstValue - secondValue;
+        break;
+      case 'multiple':
+        return firstValue * secondValue;
+        break;
+      case 'division':
+        return secondValue !== 0
+          ? firstValue / secondValue
+          : 'Operação não possível';
+        break;
+      default:
+        return 'calculo não encontrado';
+        break;
+    }
+  };
+  pickOperation = (isAnOperator) => {
+    this.setState({ operator: 2, isAnOperator });
   };
   execOperation = () => {
     this.setState({ operator: 3 });
@@ -59,6 +81,13 @@ class Calculator extends Component {
   render() {
     const calcNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
     const { operator } = this.state;
+    const operations = [
+      { type: 'sum', simbol: '+' },
+      { type: 'minus', simbol: '-' },
+      { type: 'multiple', simbol: '*' },
+      { type: 'division', simbol: '/' },
+      { type: 'potenciation', simbol: 'num²' },
+    ];
     return (
       <div className={'calculator'}>
         <div>
@@ -76,18 +105,19 @@ class Calculator extends Component {
             ))}
           </div>
           <div className='operators'>
-            <Button
-              display={'+'}
-              onClick={() => this.pickOperation(true)}
-              disabled={operator !== 1}
-              isOperator
-            />
-            <Button
-              display={'-'}
-              onClick={() => this.pickOperation(false)}
-              disabled={operator !== 1}
-              isOperator
-            />
+            {operations.map((operation) => (
+              <Button
+                key={operation.type}
+                display={operation.simbol}
+                onClick={() => this.pickOperation(operation.type)}
+                disabled={
+                  operation.type !== 'potenciation'
+                    ? operator !== 1
+                    : operator >= 2
+                }
+                isOperator
+              />
+            ))}
             <Button
               display={'='}
               onClick={() => this.execOperation()}
