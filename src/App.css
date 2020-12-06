@@ -48,11 +48,11 @@
 .button {
   display: grid;
   place-items: center;
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 3.7rem;
+  height: 3.7rem;
   border: 1px solid var(--dark-color);
   box-shadow: 1px 2px 5px var(--btn-shadow-color);
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 
   background-color: var(--btn--background-color);
   border-radius: 10px;
@@ -76,19 +76,12 @@
   .button {
     width: 2.5rem;
     height: 2rem;
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
 }
 
 @media screen and (max-width: 425px) {
-  .display {
-    font-size: 1rem;
-  }
   .button {
-    width: 2.5rem;
-    height: 2.5rem;
-    font-size: 0.8rem;
-
     border-radius: 50%;
   }
 }

@@ -105,19 +105,20 @@ class Calculator extends Component {
             ))}
           </div>
           <div className='operators'>
-            {operations.map((operation) => (
-              <Button
-                key={operation.type}
-                display={operation.simbol}
-                onClick={() => this.pickOperation(operation.type)}
-                disabled={
-                  operation.type !== 'potenciation'
-                    ? operator !== 1
-                    : operator >= 2
-                }
-                isOperator
-              />
-            ))}
+            {operations.map((operation) => {
+              const { type, simbol } = operation;
+              return (
+                <Button
+                  key={type}
+                  display={simbol}
+                  onClick={() => this.pickOperation(type)}
+                  disabled={
+                    type !== 'potenciation' ? operator !== 1 : operator >= 2
+                  }
+                  isOperator
+                />
+              );
+            })}
             <Button
               display={'='}
               onClick={() => this.execOperation()}
